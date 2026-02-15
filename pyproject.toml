@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "youtube-downloader"
+version = "0.0.1"
+description = "Production-ready YouTube downloader CLI tool"
+authors = [{ name = "Andre R. Volel", email = "avolel@gmail.com" }]
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.8"
+dependencies = [
+    "pytubefix>=6.0.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/avolel/youtube-downloader"
+
+[project.scripts]
+ytsd = "yt_downloader.cli:main"

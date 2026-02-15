@@ -1,0 +1,69 @@
+import logging
+from pathlib import Path
+from typing import Optional 
+
+from pytubefix import YouTube
+from pytubefix.cli import on_progress
+
+# Set up logging
+logger = logging.getLogger(__name__)
+
+class DownloadError(Exception):
+    """Custom exception for download failures."""
+
+def get_video_stream(yt: YouTube, resolution: Optional[str]):
+    streams = yt.streams.filter(progressive=True, file_extension="mp4")
+
+    if resolution:
+        stream = streams.filter(res=resolution).first()
+        if not stream:
+            raise DownloadError(f"Resolution '{resolution}' not available.")
+        return stream
+
+    stream = streams.order_by("resolution").desc().first()
+    if not stream:
+        raise DownloadError("No progressive MP4 streams available.")
+
+    return stream
+
+
+def get_audio_stream(yt: YouTube):
+    stream = (
+        yt.streams
+        .filter(only_audio=True)
+        .order_by("abr")
+        .desc()
+        .first()
+    )
+
+    if not stream:
+        raise DownloadError("No audio streams available.")
+
+    return stream
+
+
+def download(
+    url: str,
+    output_dir: Path,
+    resolution: Optional[str] = None,
+    audio_only: bool = False,
+) -> Path:
+    try:
+        yt = YouTube(url, on_progress_callback=on_progress)
+        logger.info("Fetching video information...")
+
+        if audio_only:
+            stream = get_audio_stream(yt)
+        else:
+            stream = get_video_stream(yt, resolution)
+
+        output_dir.mkdir(parents=True, exist_ok=True)
+
+        logger.info("Downloading: %s", yt.title)
+        file_path = Path(stream.download(output_path=str(output_dir)))
+
+        logger.info("Download complete: %s", file_path)
+        return file_path
+
+    except Exception as e:
+        raise DownloadError(str(e)) from e
