@@ -4,7 +4,7 @@ A production-ready YouTube downloader CLI tool built with pytubefix.
 
 ## Installation
 
-pip install youtube-downloader
+pip install yt-downloader-andy
 
 ## Usage
 
