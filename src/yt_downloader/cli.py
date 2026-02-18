@@ -52,6 +52,14 @@ def parse_args():
         help="Enable verbose logging.",
     )
 
+    parser.add_argument(
+        "-f",
+        "--format",
+        default="mp4",        
+        choices=["mp4", "webm"],
+        help="Video/audio format (mp4, webm). Defaults to mp4"
+    )
+
     return parser.parse_args()
 
 def main():
@@ -66,6 +74,7 @@ def main():
             output_dir=output_dir,
             resolution=args.resolution,
             audio_only=args.audio_only,
+            file_format=args.format,
         )
         return 0
 
