@@ -1,33 +1,71 @@
-# Youtube-Downloader
+# yt-downloader-andy
 
-YouTube downloader CLI tool built with pytubefix.
+A simple, production-ready YouTube downloader CLI tool built with [`pytubefix`](https://github.com/JuanBindez/pytubefix).
 
 ## Installation
 
+```bash
 pip install yt-downloader-andy
+```
 
 ## Usage
 
-Download highest resolution video:
+```bash
+ytsd -u <YouTube URL> [options]
+```
 
-ytsd -u URL
+### Options
 
-Download specific resolution:
+| Flag | Long form | Description | Default |
+|------|-----------|-------------|---------|
+| `-u` | `--url` | YouTube video URL *(required)* | — |
+| `-o` | `--output` | Output directory | `downloads` |
+| `-r` | `--resolution` | Video resolution (e.g. `720p`, `1080p`) | Highest available |
+| `-a` | `--audio-only` | Download audio only (highest quality) | `false` |
+| `-f` | `--format` | File format: `mp4` or `webm` | `mp4` |
+| `-v` | `--verbose` | Enable verbose logging | `false` |
 
-ytsd -u URL -r 720p
+### Examples
 
-Download audio only:
+**Download a video at the highest available resolution:**
+```bash
+ytsd -u "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+```
 
-ytsd -u URL -a
+**Download at a specific resolution:**
+```bash
+ytsd -u "https://www.youtube.com/watch?v=dQw4w9WgXcQ" -r 720p
+```
 
-Download audio in specific format:
+**Download audio only:**
+```bash
+ytsd -u "https://www.youtube.com/watch?v=dQw4w9WgXcQ" -a
+```
 
-ytsd -u URL -a -f webm
+**Download to a custom directory in webm format:**
+```bash
+ytsd -u "https://www.youtube.com/watch?v=dQw4w9WgXcQ" -o ~/Videos -f webm
+```
 
-Download specific resolution and format:
+**Verbose output:**
+```bash
+ytsd -u "https://www.youtube.com/watch?v=dQw4w9WgXcQ" -v
+```
 
-ytsd -u URL -r 720p -f webm
+## Requirements
 
-Enable verbose logging:
+- Python >= 3.8
+- [`pytubefix`](https://pypi.org/project/pytubefix/) >= 6.0.0
 
-ytsd -u URL -v
+## License
+
+[MIT](LICENSE)
+
+## Author
+
+Andre R. Volel — [avolel@gmail.com](mailto:avolel@gmail.com)
+
+## Links
+
+- [GitHub Repository](https://github.com/avolel/youtube-downloader)
+- [PyPI Package](https://pypi.org/project/yt-downloader-andy/)
