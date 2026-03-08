@@ -57,14 +57,6 @@ ytsd -u "https://www.youtube.com/watch?v=dQw4w9WgXcQ" -v
 - Python >= 3.8
 - [`pytubefix`](https://pypi.org/project/pytubefix/) >= 6.0.0
 
-## License
-
-[MIT](LICENSE)
-
-## Author
-
-Andre R. Volel — [avolel@gmail.com](mailto:avolel@gmail.com)
-
 ## Links
 
 - [GitHub Repository](https://github.com/avolel/youtube-downloader)
